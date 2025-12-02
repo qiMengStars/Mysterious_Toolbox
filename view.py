@@ -2,9 +2,9 @@ import os
 import sys
 from ast import literal_eval
 import ttkbootstrap as ttk
+import tkinter.messagebox as messagebox
 from tkinter import *
 from lib import *
-
 def get_resource_path(relative_path):
     """返回资源文件的绝对路径"""
     base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
@@ -48,8 +48,21 @@ def switch_content(content_type):
 
         def convert():
             # 调用 convert_base 并获取结果
-            result =  base_conversion(int(from_base1.get()),entry.get(),int(to_base1.get()))
-            # 将结果显示在 Text 控件中
+            try:
+                if entry.get()=='':
+                    messagebox.showerror("错误", "请输入内容")
+                    return
+                if not validate_input(entry.get()):
+                    messagebox.showerror("错误", "请输入正确的内容")
+                    return
+                if from_base1.get()=='' or to_base1.get()=='':
+                    messagebox.showerror("错误", "请选择进制")
+                    return
+                result = convert_base(entry.get(), int(from_base1.get()), int(to_base1.get()))
+            except Exception as e:
+                result = str(e)
+                messagebox.showerror("错误", result)
+                return
             text_result.config(state="normal")  # 解锁 Text 控件
             text_result.delete("1.0", "end")  # 清空当前内容
             text_result.insert("1.0", result)  # 插入转换结果
@@ -87,11 +100,23 @@ def switch_content(content_type):
         # 创建输入框，设置验证规则
         entry = ttk.Entry(main_content, validate="key", validatecommand=(vcmd, "%P"))
         entry.pack(pady=5)
-
         def convert():
             # 调用 convert_base 并获取结果
-            result = convert_base(entry.get(), int(from_base1.get()), int(to_base1.get()))
-            # 将结果显示在 Text 控件中
+            try:
+                if entry.get()=='':
+                    messagebox.showerror("错误", "请输入内容")
+                    return
+                if not validate_input(entry.get()):
+                    messagebox.showerror("错误", "请输入正确的内容")
+                    return
+                if from_base1.get()=='' or to_base1.get()=='':
+                    messagebox.showerror("错误", "请选择进制")
+                    return
+                result = convert_base(entry.get(), int(from_base1.get()), int(to_base1.get()))
+            except Exception as e:
+                result = str(e)
+                messagebox.showerror("错误", result)
+                return
             text_result.config(state="normal")  # 解锁 Text 控件
             text_result.delete("1.0", "end")  # 清空当前内容
             text_result.insert("1.0", result)  # 插入转换结果

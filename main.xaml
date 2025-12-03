@@ -1,0 +1,43 @@
+<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <!-- 云母 -->
+    <!-- <Window.SystemBackdrop>
+        <MicaBackdrop Kind="BaseAlt" />
+    </Window.SystemBackdrop> -->
+
+    <!-- 亚克力 -->
+    <Window.SystemBackdrop>
+        <DesktopAcrylicBackdrop />
+    </Window.SystemBackdrop>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TitleBar x:Name="SimpleTitleBar"
+                  Title="莫名其妙工具箱">
+            <TitleBar.IconSource>
+                <FontIconSource Glyph="&#xE756;"/>
+            </TitleBar.IconSource>
+        </TitleBar>
+        <Frame x:Name="RootFrame" Grid.Row="1">
+        <NavigationView x:Name="NavView" IsSettingsVisible="false" IsBackButtonVisible="Collapsed">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Tag="App.Simple" Content="进制转换-简单" Icon="	Manage" />
+                <NavigationViewItem Tag="App.Advanced" Content="进制转换-高级" Icon="	Calculator" />
+            </NavigationView.MenuItems>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem Content="关于" Tag="App.About" Icon="Help" />
+            </NavigationView.FooterMenuItems>
+            <Frame x:Name="ContentFrame">
+            </Frame>
+
+        </NavigationView>
+        </Frame>
+    </Grid>
+</Window>
